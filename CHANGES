@@ -1,0 +1,12 @@
+Changelog for RDF-aREF
+
+0.03 2013-12-02T13:48:36
+ - release [Jakob Voss]
+ - avoid lexical $_ [Jakob Voss]
+ - added error test [Jakob Voss]
+ - run coverage test with RDF::Trine [Jakob Voss]
+ - fixed links [Jakob Voss]
+ - improved unit tests [Jakob Voss]
+ - rewrote aREF decoder [Jakob Voss]
+ - split RDF::aREF from Catmandu-RDF [Jakob Voss]
+
