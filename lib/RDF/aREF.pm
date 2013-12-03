@@ -1,7 +1,7 @@
 use strict;
 package RDF::aREF;
 #ABSTRACT: Another RDF Encoding Form
-our $VERSION = '0.03'; #VERSION
+our $VERSION = '0.04'; #VERSION
 
 use RDF::aREF::Decoder;
 
@@ -51,7 +51,7 @@ RDF::aREF - Another RDF Encoding Form
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 SYNOPSIS
 

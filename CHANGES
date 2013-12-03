@@ -1,6 +1,9 @@
 Changelog for RDF-aREF
 
-0.03 2013-12-02T13:48:36
+0.04 2013-12-03T08:51:07
+ - improved error handling, fixed bug in subject-maps [Jakob Voss]
+
+0.03 2013-12-02T13:47:26
  - release [Jakob Voss]
  - avoid lexical $_ [Jakob Voss]
  - added error test [Jakob Voss]
