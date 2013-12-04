@@ -18,3 +18,4 @@ t/examples/json-ld-23.nt
 t/examples/rdf-trine-model.json
 t/examples/rdf-trine-model.nt
 t/objects.t
+t/strict.t
