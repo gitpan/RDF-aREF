@@ -23,7 +23,7 @@ my %WriteMakefileArgs = (
     "RDF::NS" => 20130816
   },
   "TEST_REQUIRES" => {},
-  "VERSION" => "0.05",
+  "VERSION" => "0.06",
   "test" => {
     "TESTS" => "t/*.t"
   }

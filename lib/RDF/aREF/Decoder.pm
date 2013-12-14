@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package RDF::aREF::Decoder;
 #ABSTRACT: Decode another RDF Encoding Form (to RDF triples)
-our $VERSION = '0.05'; #VERSION
+our $VERSION = '0.06'; #VERSION
 use RDF::NS;
 use v5.12;
 use feature 'unicode_strings';
@@ -112,7 +112,7 @@ sub predicate_map {
                     if $_ ne '' or $self->{strict};
                 next;
             }
-        };
+        } or next;
 
         my $value = $map->{$_};
         # empty arrays are always alowed BTW
@@ -246,7 +246,7 @@ RDF::aREF::Decoder - Decode another RDF Encoding Form (to RDF triples)
 
 =head1 VERSION
 
-version 0.05
+version 0.06
 
 =head1 SYNOPSIS
 

@@ -1,6 +1,10 @@
 Changelog for RDF-aREF
 
-0.05 2013-12-04T20:03:19
+0.06 2013-12-14T20:15:52
+ - extended test suite [Jakob Voss]
+ - test-cases with errors [Jakob Voss]
+
+0.05 2013-12-04T20:01:53
  - improved handling of undefined/null [Jakob Voss]
  - use warnings; list provides [Jakob Voss]
 
