@@ -1,6 +1,10 @@
 Changelog for RDF-aREF
 
-0.06 2013-12-14T20:15:52
+0.07 2013-12-18T08:21:47
+ - increased error detection [Jakob Voss]
+ - fixed test_requires [Jakob Voss]
+
+0.06 2013-12-14T20:15:38
  - extended test suite [Jakob Voss]
  - test-cases with errors [Jakob Voss]
 

@@ -16,10 +16,15 @@ my @errors = (
         => 'object must not be reference to SCALAR',
     { '<x:subject>' => { a => [ \"" ] } }
         => 'object must not be reference to SCALAR',
+
+    { _ns => { 1 => 'http://example.org/' }, 
+      '<x:subject>' => { a => 'foaf:Person' } }
+        => "invalid prefix: 1",
+    { _ns => { x => 'foo' }, 
+      '<x:subject>' => { a => 'foaf:Person' } }
+        => "invalid namespace: foo",
 );
 
-use JSON;
-my $i=1;
 while (defined (my $aref = shift @errors)) {
     my ($expect, $got) = shift @errors;
     

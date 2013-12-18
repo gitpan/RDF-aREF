@@ -22,8 +22,11 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "RDF::NS" => 20130816
   },
-  "TEST_REQUIRES" => {},
-  "VERSION" => "0.06",
+  "TEST_REQUIRES" => {
+    "JSON" => 0,
+    "RDF::Trine" => 0
+  },
+  "VERSION" => "0.07",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -31,7 +34,9 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
-  "RDF::NS" => 20130816
+  "JSON" => 0,
+  "RDF::NS" => 20130816,
+  "RDF::Trine" => 0
 );
 
 
