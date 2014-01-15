@@ -1,6 +1,9 @@
 Changelog for RDF-aREF
 
-0.07 2013-12-18T08:21:47
+0.08 2014-01-15T11:56:19
+ - facilitate use of this module together with RDF::Trine [Jakob Voss]
+
+0.07 2013-12-18T08:21:41
  - increased error detection [Jakob Voss]
  - fixed test_requires [Jakob Voss]
 

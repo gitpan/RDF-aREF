@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package RDF::aREF;
 #ABSTRACT: Another RDF Encoding Form
-our $VERSION = '0.07'; #VERSION
+our $VERSION = '0.08'; #VERSION
 
 use RDF::aREF::Decoder;
 
@@ -15,28 +15,9 @@ sub decode_aref(@) { ## no critic
     RDF::aREF::Decoder->new(%options)->decode($aref);
 }
 
-# experimental
-# TODO: test this
 sub aref_to_trine_statement {
-    require RDF::Trine::Statement;
-
-    RDF::Trine::Statement->new(
-        # subject
-        ref $_[0] ? RDF::Trine::Node::Blank->new(${$_[0]})
-            : RDF::Trine::Node::Resource->new($_[0]),
-        # predicate
-        RDF::Trine::Node::Resource->new($_[1]),
-        # object
-        do {
-            if (ref $_[2]) {
-                RDF::Trine::Node::Blank->new(${$_[2]});
-            } elsif (@_ == 3) {
-                RDF::Trine::Node::Resource->new($_[2]);
-            } else {
-                RDF::Trine::Node::Literal->new($_[2],$_[3],$_[4]);
-            } 
-        }
-    );
+    # TODO: warn 'RDF::aREF::aref_to_trine_statement will be removed!';
+    RDF::aREF::Decoder::aref_to_trine_statement(@_);
 }
 
 1;
@@ -53,7 +34,7 @@ RDF::aREF - Another RDF Encoding Form
 
 =head1 VERSION
 
-version 0.07
+version 0.08
 
 =head1 SYNOPSIS
 
@@ -122,7 +103,7 @@ Jakob Voß
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Jakob Voß.
+This software is copyright (c) 2014 by Jakob Voß.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

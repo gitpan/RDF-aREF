@@ -66,3 +66,4 @@ t/suite/strict-null-object-1.json
 t/suite/strict-null-object-2.err
 t/suite/strict-null-object-2.json
 t/suite/strict-null-object-2.nt
+t/trine.t

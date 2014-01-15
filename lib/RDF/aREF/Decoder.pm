@@ -2,11 +2,11 @@ use strict;
 use warnings;
 package RDF::aREF::Decoder;
 #ABSTRACT: Decode another RDF Encoding Form (to RDF triples)
-our $VERSION = '0.07'; #VERSION
+our $VERSION = '0.08'; #VERSION
 use RDF::NS;
 use v5.12;
 use feature 'unicode_strings';
-use Scalar::Util qw(refaddr);
+use Scalar::Util qw(refaddr blessed);
 
 no warnings 'uninitialized';
 
@@ -22,9 +22,19 @@ use constant blankNode   => qr/^_:([a-zA-Z0-9]+)$/;
 sub new {
     my ($class, %options) = @_;
 
+    # facilitate use of this module together with RDF::Trine
+    my $callback = $options{callback} // sub { };
+    if (blessed $callback and $callback->isa('RDF::Trine::Model')) {
+        require RDF::Trine::Statement;
+        my $model = $callback;
+        $callback = sub {
+            $model->add_statement( aref_to_trine_statement( @_ ) )
+        };
+    }
+
     bless {
         ns       => $options{ns},
-        callback => $options{callback} // sub { },
+        callback => $callback,
         error    => $options{error} // sub { say STDERR $_[0] },
         strict   => $options{strict} // 0,
         null     => $options{null}, # undef by default
@@ -236,6 +246,28 @@ sub blank_identifier {
 
     return \$bnode;
 }
+ 
+# TODO: test this
+sub aref_to_trine_statement {
+    RDF::Trine::Statement->new(
+        # subject
+        ref $_[0] ? RDF::Trine::Node::Blank->new(${$_[0]})
+            : RDF::Trine::Node::Resource->new($_[0]),
+        # predicate
+        RDF::Trine::Node::Resource->new($_[1]),
+        # object
+        do {
+            if (ref $_[2]) {
+                RDF::Trine::Node::Blank->new(${$_[2]});
+            } elsif (@_ == 3) {
+                RDF::Trine::Node::Resource->new($_[2]);
+            } else {
+                RDF::Trine::Node::Literal->new($_[2],$_[3],$_[4]);
+            } 
+        }
+    );
+}
+
 
 1;
 
@@ -251,7 +283,7 @@ RDF::aREF::Decoder - Decode another RDF Encoding Form (to RDF triples)
 
 =head1 VERSION
 
-version 0.07
+version 0.08
 
 =head1 SYNOPSIS
 
@@ -303,6 +335,9 @@ C<http://www.w3.org/2001/XMLSchema#string>.
 
 =back
 
+For convenience an instance of L<RDF::Trine::Model> can also be used as
+callback.
+
 =head2 error
 
 A code reference that decoding errors are passed to. By default an error
@@ -327,7 +362,7 @@ Jakob Voß
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Jakob Voß.
+This software is copyright (c) 2014 by Jakob Voß.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
