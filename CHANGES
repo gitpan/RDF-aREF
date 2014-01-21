@@ -1,6 +1,13 @@
 Changelog for RDF-aREF
 
-0.08 2014-01-15T11:56:19
+0.09 2014-01-21T13:11:47
+ - better error message when expecting an URI (close #3) [Jakob Voss]
+ - Avoid numeric blank node identifiers.
+   
+   Although it's legal, some parsers don't like them. [Jakob Voss]
+ - Show how to decode into RDF::Trine::Model [Jakob Voss]
+
+0.08 2014-01-15T11:08:31
  - facilitate use of this module together with RDF::Trine [Jakob Voss]
 
 0.07 2013-12-18T08:21:41

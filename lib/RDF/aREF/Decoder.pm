@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package RDF::aREF::Decoder;
 #ABSTRACT: Decode another RDF Encoding Form (to RDF triples)
-our $VERSION = '0.08'; #VERSION
+our $VERSION = '0.09'; #VERSION
 use RDF::NS;
 use v5.12;
 use feature 'unicode_strings';
@@ -220,7 +220,9 @@ sub resource {
 sub prefixed_name {
     my ($self, $prefix, $name) = @_;
     my $base = $self->{ns}{$prefix // ''}
-        // return $self->error("unknown prefix: $prefix");
+        // return $self->error(
+            $prefix // '' ne '' 
+            ? "unknown prefix: $prefix" : "not an URI: $name");
     $self->iri($base.$name);
 }
 
@@ -240,9 +242,8 @@ sub blank_identifier {
     # TODO: preserve ids on request
 
     my $bnode = defined $id 
-        ? $self->{blank_node_ids}{$id} // 
-          ($self->{blank_node_ids}{$id} = ++$self->{blank_node_count})
-        : ++$self->{blank_node_count};
+        ? ($self->{blank_node_ids}{$id} //= 'b' . ++$self->{blank_node_count})
+        : 'b' . ++$self->{blank_node_count};
 
     return \$bnode;
 }
@@ -283,7 +284,7 @@ RDF::aREF::Decoder - Decode another RDF Encoding Form (to RDF triples)
 
 =head1 VERSION
 
-version 0.08
+version 0.09
 
 =head1 SYNOPSIS
 

@@ -17,10 +17,10 @@ name: RDF-aREF
 provides:
   RDF::aREF:
     file: lib/RDF/aREF.pm
-    version: 0.08
+    version: 0.09
   RDF::aREF::Decoder:
     file: lib/RDF/aREF/Decoder.pm
-    version: 0.08
+    version: 0.09
 requires:
   RDF::NS: 20130816
   perl: v5.12.0
@@ -28,4 +28,4 @@ resources:
   bugtracker: https://github.com/nichtich/RDF-aREF/issues
   homepage: https://github.com/nichtich/RDF-aREF
   repository: https://github.com/nichtich/RDF-aREF.git
-version: 0.08
+version: 0.09

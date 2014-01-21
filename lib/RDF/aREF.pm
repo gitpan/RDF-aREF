@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package RDF::aREF;
 #ABSTRACT: Another RDF Encoding Form
-our $VERSION = '0.08'; #VERSION
+our $VERSION = '0.09'; #VERSION
 
 use RDF::aREF::Decoder;
 
@@ -34,7 +34,7 @@ RDF::aREF - Another RDF Encoding Form
 
 =head1 VERSION
 
-version 0.08
+version 0.09
 
 =head1 SYNOPSIS
 
@@ -62,6 +62,8 @@ version 0.08
             ...
         }
     );
+    
+    decode_aref( $rdf, callback => $model ); # decode into RDF::Trine::Model
 
 =head1 DESCRIPTION
 
