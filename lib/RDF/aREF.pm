@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package RDF::aREF;
 #ABSTRACT: Another RDF Encoding Form
-our $VERSION = '0.09'; #VERSION
+our $VERSION = '0.10'; #VERSION
 
 use RDF::aREF::Decoder;
 
@@ -34,7 +34,7 @@ RDF::aREF - Another RDF Encoding Form
 
 =head1 VERSION
 
-version 0.09
+version 0.10
 
 =head1 SYNOPSIS
 
@@ -63,7 +63,9 @@ version 0.09
         }
     );
     
-    decode_aref( $rdf, callback => $model ); # decode into RDF::Trine::Model
+    my $model = RDF::Trine::Model->new;
+    decode_aref( $rdf, callback => $model );
+    print RDF::Trine::Serializer->new('Turtle')->serialize_model_to_string($model);
 
 =head1 DESCRIPTION
 
@@ -92,6 +94,10 @@ This module was first packaged together with L<Catmandu::RDF>.
 =item
 
 aREF is being specified at L<http://github.com/gbv/aREF>.
+
+=item
+
+L<RDF::Trine> contains much more for handling RDF data in Perl.
 
 =item
 

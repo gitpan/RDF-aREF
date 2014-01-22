@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package RDF::aREF::Decoder;
 #ABSTRACT: Decode another RDF Encoding Form (to RDF triples)
-our $VERSION = '0.09'; #VERSION
+our $VERSION = '0.10'; #VERSION
 use RDF::NS;
 use v5.12;
 use feature 'unicode_strings';
@@ -33,11 +33,13 @@ sub new {
     }
 
     bless {
-        ns       => $options{ns},
-        callback => $callback,
-        error    => $options{error} // sub { say STDERR $_[0] },
-        strict   => $options{strict} // 0,
-        null     => $options{null}, # undef by default
+        ns           => $options{ns},
+        callback     => $callback,
+        error        => $options{error} // sub { say STDERR $_[0] },
+        strict       => $options{strict} // 0,
+        null         => $options{null}, # undef by default
+        bnode_prefix => $options{bnode_prefix} || 'b',
+        bnode_count  => $options{bnode_count} || 0,
     }, $class;
 }
 
@@ -77,8 +79,7 @@ sub namespace_map { # sets the local namespace map
 sub decode {
     my ($self, $map) = @_;
 
-    $self->{blank_node_ids} = { };
-    $self->{blank_node_count} = 0;
+    $self->{blank_node_ids} = { }; # required (?)
     $self->{visited} = { };
 
     $self->namespace_map( $map->{"_ns"} );
@@ -236,14 +237,22 @@ sub error {
     return;
 }
 
+sub bnode_count {
+    $_[0]->{bnode_count} = $_[1] if @_ > 1;
+    $_[0]->{bnode_count};
+}
+
 sub blank_identifier {
     my ($self, $id) = @_;
 
     # TODO: preserve ids on request
 
-    my $bnode = defined $id 
-        ? ($self->{blank_node_ids}{$id} //= 'b' . ++$self->{blank_node_count})
-        : 'b' . ++$self->{blank_node_count};
+    my $bnode;
+    if ( defined $id ) {
+        $bnode = ($self->{blank_node_ids}{$id} //= $self->{bnode_prefix} . ++$self->{bnode_count});
+    } else {
+        $bnode = $self->{bnode_prefix} . ++$self->{bnode_count};
+    }
 
     return \$bnode;
 }
@@ -284,7 +293,7 @@ RDF::aREF::Decoder - Decode another RDF Encoding Form (to RDF triples)
 
 =head1 VERSION
 
-version 0.09
+version 0.10
 
 =head1 SYNOPSIS
 
@@ -356,6 +365,18 @@ optional values.
 A null object that is treated equivalent to C<undef> if found as object.  For
 instance setting this to the empty string will ignore all triples with the
 empty string as literal value. 
+
+=head2 bnode_prefix
+
+A prefix for blank node identifiers. Defaults to "b", so blank node identifiers
+will be "b1", "b2", "b3" etc.
+
+=head2 bnode_counter
+
+An integer to start creating blank node identifiers with. The default value "0"
+results in blank node identifiers starting from "b1". This option can be useful
+to avoid collision of blank node identifiers when merging multiple aREF
+instances. The current counter value is accessible as accessor.
 
 =head1 AUTHOR
 

@@ -1,6 +1,12 @@
 Changelog for RDF-aREF
 
-0.09 2014-01-21T13:11:47
+0.10 2014-01-22T11:11:56
+ - fixed bnode collision bug [Jakob Voss]
+ - new option: bnode_prefix [Jakob Voss]
+ - show how to serialize with RDF::Trine [Jakob Voss]
+ - more test cases [Jakob Voss]
+
+0.09 2014-01-21T13:11:32
  - better error message when expecting an URI (close #3) [Jakob Voss]
  - Avoid numeric blank node identifiers.
    
