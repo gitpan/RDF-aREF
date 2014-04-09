@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package RDF::aREF::Decoder;
 #ABSTRACT: Decode another RDF Encoding Form (to RDF triples)
-our $VERSION = '0.10'; #VERSION
+our $VERSION = '0.11'; #VERSION
 use RDF::NS;
 use v5.12;
 use feature 'unicode_strings';
@@ -22,25 +22,30 @@ use constant blankNode   => qr/^_:([a-zA-Z0-9]+)$/;
 sub new {
     my ($class, %options) = @_;
 
-    # facilitate use of this module together with RDF::Trine
-    my $callback = $options{callback} // sub { };
-    if (blessed $callback and $callback->isa('RDF::Trine::Model')) {
-        require RDF::Trine::Statement;
-        my $model = $callback;
-        $callback = sub {
-            $model->add_statement( aref_to_trine_statement( @_ ) )
-        };
-    }
-
-    bless {
+    my $self = bless {
         ns           => $options{ns},
-        callback     => $callback,
         error        => $options{error} // sub { say STDERR $_[0] },
         strict       => $options{strict} // 0,
         null         => $options{null}, # undef by default
         bnode_prefix => $options{bnode_prefix} || 'b',
         bnode_count  => $options{bnode_count} || 0,
     }, $class;
+
+    # facilitate use of this module together with RDF::Trine
+    my $callback = $options{callback} // sub { };
+    if (blessed $callback and $callback->isa('RDF::Trine::Model')) {
+        require RDF::Trine::Statement;
+        my $model = $callback;
+        $callback = sub {
+            eval {
+                $model->add_statement( aref_to_trine_statement( @_ ) )
+            };
+            $self->error($@) if $@;
+        };
+    }
+    $self->{callback} = $callback;
+
+    return $self;
 }
 
 sub namespace_map { # sets the local namespace map
@@ -293,7 +298,7 @@ RDF::aREF::Decoder - Decode another RDF Encoding Form (to RDF triples)
 
 =head1 VERSION
 
-version 0.10
+version 0.11
 
 =head1 SYNOPSIS
 
