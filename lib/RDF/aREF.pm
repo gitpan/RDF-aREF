@@ -1,14 +1,16 @@
+package RDF::aREF;
 use strict;
 use warnings;
-package RDF::aREF;
-#ABSTRACT: Another RDF Encoding Form
-our $VERSION = '0.11'; #VERSION
+use v5.12;
+
+our $VERSION = '0.12';
 
 use RDF::aREF::Decoder;
 
 use parent 'Exporter';
 our @EXPORT = qw(decode_aref);
-our @EXPORT_OK = qw(aref_to_trine_statement decode_aref);
+our @EXPORT_OK = qw(aref_to_trine_statement decode_aref aref_get_literal aref_get_resource);
+our %EXPORT_TAGS = (all => [@EXPORT_OK]);
 
 sub decode_aref(@) { ## no critic
     my ($aref, %options) = @_;
@@ -20,21 +22,40 @@ sub aref_to_trine_statement {
     RDF::aREF::Decoder::aref_to_trine_statement(@_);
 }
 
+sub aref_get_literal {
+    state $decoder = RDF::aREF::Decoder->new;
+    if (ref $_[0]) {
+        return grep { defined } map { $decoder->plain_literal($_) } @{$_[0]};
+    } else {
+        $decoder->plain_literal(@_);
+    }
+}
+
+sub aref_get_resource {
+    state $decoder = RDF::aREF::Decoder->new;
+    if (ref $_[0]) {
+        return grep { defined } map { $decoder->resource($_) } @{$_[0]};
+    } else {
+        $decoder->resource(@_);
+    }
+}
+
 1;
-
 __END__
-
-=pod
-
-=encoding UTF-8
 
 =head1 NAME
 
 RDF::aREF - Another RDF Encoding Form
 
-=head1 VERSION
+=begin markdown
 
-version 0.11
+# STATUS
+
+[![Build Status](https://travis-ci.org/nichtich/RDF-aREF.png)](https://travis-ci.org/nichtich/RDF-aREF)
+[![Coverage Status](https://coveralls.io/repos/nichtich/RDF-aREF/badge.png)](https://coveralls.io/r/nichtich/RDF-aREF)
+[![Kwalitee Score](http://cpants.cpanauthors.org/dist/RDF-aREF.png)](http://cpants.cpanauthors.org/dist/RDF-aREF)
+
+=end markdown
 
 =head1 SYNOPSIS
 
@@ -75,7 +96,7 @@ implements decoding from aREF data to RDF triples.
 
 =head1 EXPORTED FUNCTIONS
 
-=head2 decode_aref ( $aref, [ %options ] )
+=head2 decode_aref( $aref, [ %options ] )
 
 Decodes an aREF document given as hash referece. This function is a shortcut for
 
@@ -83,11 +104,26 @@ Decodes an aREF document given as hash referece. This function is a shortcut for
 
 See L<RDF::aREF::Decoder> for possible options.
 
+=head1 EXPORTABLE FUNCTIONS (experimental)
+
+=head2 aref_iri( [ $decoder ], $uri )
+
+Encode an URI in aREF.
+
+=head2 aref_get_literal( $string | \@strings )
+
+Converts a list of aREF objects to plain strings by removing language tags or
+datatypes.
+
+=head2 aref_get_resource( $string | \@strings ] )
+
+Decodes one or more resources (URI references or blank nodes)
+
 =head1 SEE ALSO
 
 =over
 
-=item
+=item 
 
 This module was first packaged together with L<Catmandu::RDF>.
 
@@ -105,15 +141,11 @@ See L<RDF::YAML> for a similar (outdated) RDF encoding in YAML.
 
 =back
 
-=head1 AUTHOR
-
-Jakob Voß
-
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2014 by Jakob Voß.
+Copyright Jakob Voss, 2014-
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+This library is free software; you can redistribute it and/or modify it under
+the same terms as Perl itself.
 
 =cut
