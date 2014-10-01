@@ -36,6 +36,8 @@ DESCRIPTION
     encoding of RDF graphs in form of arrays, hashes, and Unicode strings.
     This module implements decoding from aREF data to RDF triples.
 
+    See RDF::aREF::Decoder and RDF::aREF::Encoder for usage of this module.
+
 EXPORTED FUNCTIONS
   decode_aref( $aref, [ %options ] )
     Decodes an aREF document given as hash referece. This function is a
@@ -45,7 +47,7 @@ EXPORTED FUNCTIONS
 
     See RDF::aREF::Decoder for possible options.
 
-EXPORTABLE FUNCTIONS (experimental)
+EXPORTABLE FUNCTIONS (experimental!)
   aref_iri( [ $decoder ], $uri )
     Encode an URI in aREF.
 

@@ -13,6 +13,7 @@ lib/RDF/aREF/Decoder.pm
 lib/RDF/aREF/Encoder.pm
 t/aref_get_literal.t
 t/decoder.t
+t/encoder.t
 t/errors.t
 t/objects.t
 t/release-pod-syntax.t

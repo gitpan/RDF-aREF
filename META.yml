@@ -23,14 +23,13 @@ no_index:
     - eg
     - examples
 requires:
-  Moo: '0'
   RDF::NS: '20130816'
   perl: v5.12.0
 resources:
   bugtracker: https://github.com/nichtich/RDF-aREF/issues
   homepage: https://github.com/nichtich/RDF-aREF
   repository: https://github.com/nichtich/RDF-aREF.git
-version: '0.12'
+version: '0.13'
 x_contributors:
   - 'Jakob Voss <jakob@nichtich.de>'
   - 'Jakob Voss <voss@gbv.de>'
