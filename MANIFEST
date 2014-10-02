@@ -11,8 +11,9 @@ dist.ini
 lib/RDF/aREF.pm
 lib/RDF/aREF/Decoder.pm
 lib/RDF/aREF/Encoder.pm
-t/aref_get_literal.t
+t/aref-query.t
 t/decoder.t
+t/doi-example.json
 t/encoder.t
 t/errors.t
 t/objects.t
