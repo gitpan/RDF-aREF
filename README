@@ -40,11 +40,12 @@ DESCRIPTION
 
 EXPORTED FUNCTIONS
   decode_aref( $aref, [ %options ] )
-    Decodes an aREF document given as hash reference. This function is a
-    shortcut for "RDF::aREF::Decoder->new(%options)->decode($aref)".
+    Decodes an aREF document given as hash reference with
+    RDF::aREF::Decoder. Shortcut for
+    "RDF::aREF::Decoder->new(%options)->decode($aref)".
 
   aref_query( $aref, [ $subject ], $query )
-    experimental.
+    Experimental query function to access parts of an aREF data structure.
 
 SEE ALSO
     *   aREF is being specified at <http://github.com/gbv/aREF>.

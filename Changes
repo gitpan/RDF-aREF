@@ -1,5 +1,9 @@
 # Changelog for RDF-aREF
 
+0.15  2014-10-05 15:16:09 CEST
+  - better support RDF::Trine in Encoder
+  - introduced RDF::aREF::Query (experimental)
+
 0.14  2014-10-02 14:14:09 CEST
   - adjust with aREF 0.19
   - added aref_query (experimental)
