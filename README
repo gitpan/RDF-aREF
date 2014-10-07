@@ -7,11 +7,11 @@ SYNOPSIS
         my $rdf = {
           _id       => 'http://example.com/people#alice',
           foaf_name => 'Alice Smith',
-          foaf_age  => '42^xsd:integer',
+          foaf_age  => '42^xsd_integer',
           foaf_homepage => [
              { 
                _id => 'http://personal.example.org/',
-               dct_modified => '2010-05-29^xsd:date',
+               dct_modified => '2010-05-29^xsd_date',
              },
             'http://work.example.com/asmith/',
           ],
@@ -27,6 +27,8 @@ SYNOPSIS
             }
         );
     
+        my @lastmod = aref_query( $rdf, 'foaf_homepage.dct_modified^' );
+
         my $model = RDF::Trine::Model->new;
         decode_aref( $rdf, callback => $model );
         print RDF::Trine::Serializer->new('Turtle')->serialize_model_to_string($model);
@@ -34,25 +36,28 @@ SYNOPSIS
 DESCRIPTION
     aREF (another RDF Encoding Form <http://gbv.github.io/aREF/>) is an
     encoding of RDF graphs in form of arrays, hashes, and Unicode strings.
-    This module implements methods for decoding from aREF data to RDF
-    triples (RDF::aREF::Decoder) and for encoding RDF data in aREF
-    (RDF::aREF::Encoder).
+    This module provides methods for decoding from aREF data to RDF triples
+    (RDF::aREF::Decoder), for encoding RDF data in aREF
+    (RDF::aREF::Encoder), and for querying parts of an RDF graph
+    (RDF::aREF::Query).
 
 EXPORTED FUNCTIONS
+    The following functions are exported by default.
+
   decode_aref( $aref, [ %options ] )
     Decodes an aREF document given as hash reference with
-    RDF::aREF::Decoder. Shortcut for
+    RDF::aREF::Decoder. Equivalent to
     "RDF::aREF::Decoder->new(%options)->decode($aref)".
 
-  aref_query( $aref, [ $subject ], $query )
-    Experimental query function to access parts of an aREF data structure.
+  aref_query( $aref, [ $origin ], $query )
+    Query parts of an aREF data structure. See RDF::aREF::Query for details.
 
 SEE ALSO
-    *   aREF is being specified at <http://github.com/gbv/aREF>.
+    *   aREF is specified at <http://github.com/gbv/aREF>.
 
-    *   This module was first packaged together with Catmandu::RDF.
+    *   See Catmandu::RDF for an application of this module.
 
-    *   RDF::Trine contains much more for handling RDF data in Perl.
+    *   Usee RDF::Trine for more elaborated handling of RDF data in Perl.
 
     *   See RDF::YAML for a similar (outdated) RDF encoding in YAML.
 

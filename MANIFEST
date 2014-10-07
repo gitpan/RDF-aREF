@@ -13,13 +13,12 @@ lib/RDF/aREF/Decoder.pm
 lib/RDF/aREF/Encoder.pm
 lib/RDF/aREF/Query.pm
 t/aref-query.t
+t/decode-errors.t
 t/decoder.t
 t/doi-example.json
 t/encoder.t
-t/errors.t
 t/objects.t
 t/release-pod-syntax.t
-t/strict.t
 t/suite.t
 t/suite/README.md
 t/suite/blanks.json
