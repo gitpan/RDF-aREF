@@ -17,6 +17,7 @@ t/decode-errors.t
 t/decoder.t
 t/doi-example.json
 t/encoder.t
+t/null.t
 t/objects.t
 t/release-pod-syntax.t
 t/suite.t
