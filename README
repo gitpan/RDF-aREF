@@ -49,8 +49,11 @@ EXPORTED FUNCTIONS
     RDF::aREF::Decoder. Equivalent to
     "RDF::aREF::Decoder->new(%options)->decode($aref)".
 
-  aref_query( $aref, [ $origin ], $query )
+  aref_query( $graph, [ $origin ], $query )
     Query parts of an aREF data structure. See RDF::aREF::Query for details.
+
+  aref_query_map( $graph, [ $origin ], $query_map )
+    Map parts of an aREF data structure to a flat key-value structure.
 
 SEE ALSO
     *   aREF is specified at <http://github.com/gbv/aREF>.
