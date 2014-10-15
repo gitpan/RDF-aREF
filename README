@@ -33,6 +33,10 @@ SYNOPSIS
         decode_aref( $rdf, callback => $model );
         print RDF::Trine::Serializer->new('Turtle')->serialize_model_to_string($model);
 
+        my $model = RDF::Trine::Model->new;
+        RDF::Trine::Parser->parse_url_into_model($url, $model);
+        my $aref = encode_aref $model;
+
 DESCRIPTION
     aREF (another RDF Encoding Form <http://gbv.github.io/aREF/>) is an
     encoding of RDF graphs in form of arrays, hashes, and Unicode strings.
@@ -44,10 +48,14 @@ DESCRIPTION
 EXPORTED FUNCTIONS
     The following functions are exported by default.
 
-  decode_aref( $aref, [ %options ] )
+  decode_aref( $aref [, %options ] )
     Decodes an aREF document given as hash reference with
     RDF::aREF::Decoder. Equivalent to
     "RDF::aREF::Decoder->new(%options)->decode($aref)".
+
+  encode_aref( $rdf [, %options ] )
+    Create a new RDF::aREF::Encoder and construct an aREF subject map with
+    RDF triples given as RDF::Trine::Model or RDF::Trine::Model::Iterator.
 
   aref_query( $graph, [ $origin ], $query )
     Query parts of an aREF data structure. See RDF::aREF::Query for details.

@@ -1,5 +1,9 @@
 # Changelog for RDF-aREF
 
+0.19  2014-10-15 14:56:18 CEST
+  - added encoding methods
+  - removed internal method aref_to_trine_statement (issue #6)
+
 0.18  2014-10-14 10:35:56 CEST
   - implement aref_query_map (issue #7)
   - adjust subjects to aREF spec (more strict)

@@ -6,7 +6,7 @@ build_requires:
   JSON: '0'
   RDF::Trine: '0'
 configure_requires:
-  Module::Build::Tiny: '0.037'
+  Module::Build::Tiny: '0.039'
 dynamic_config: 0
 generated_by: 'Dist::Milla version v1.0.8, Dist::Zilla version 5.020, CPAN::Meta::Converter version 2.141520'
 license: perl
@@ -29,7 +29,7 @@ resources:
   bugtracker: https://github.com/nichtich/RDF-aREF/issues
   homepage: https://github.com/nichtich/RDF-aREF
   repository: https://github.com/nichtich/RDF-aREF.git
-version: '0.18'
+version: '0.19'
 x_contributors:
   - 'Jakob Voss <jakob@nichtich.de>'
   - 'Jakob Voss <voss@gbv.de>'
