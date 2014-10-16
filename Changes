@@ -1,5 +1,10 @@
 # Changelog for RDF-aREF
 
+0.20  2014-10-16 12:09:05 CEST
+  - support empty queries
+  - fix bug for literal nodes without language tags in encoder
+  - new encoder method add_hashref
+
 0.19  2014-10-15 14:56:18 CEST
   - added encoding methods
   - removed internal method aref_to_trine_statement (issue #6)
