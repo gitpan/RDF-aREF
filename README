@@ -27,7 +27,7 @@ SYNOPSIS
             }
         );
     
-        my @lastmod = aref_query( $rdf, 'foaf_homepage.dct_modified^' );
+        my @lastmod = aref_query $rdf, 'foaf_homepage.dct_modified^';
 
         my $model = RDF::Trine::Model->new;
         decode_aref( $rdf, callback => $model );
@@ -48,21 +48,32 @@ DESCRIPTION
 EXPORTED FUNCTIONS
     The following functions are exported by default.
 
-  decode_aref( $aref [, %options ] )
+  decode_aref $aref [, %options ]
     Decodes an aREF document given as hash reference with
     RDF::aREF::Decoder. Equivalent to
     "RDF::aREF::Decoder->new(%options)->decode($aref)".
 
-  encode_aref( $rdf [, %options ] )
-    Create a new RDF::aREF::Encoder and construct an aREF subject map with
-    RDF triples given as RDF::Trine::Model, as RDF::Trine::Model::Iterator
-    or as hash reference with RDF/JSON <http://www.w3.org/TR/rdf-json/>
-    format, as returned by method "as_hashref" in RDF::Trine::Model.
+  encode_aref $graph [, %options ]
+    Construct an aREF subject map (using a new RDF::aREF::Encoder) fron an
+    RDF graph. The graph can be supplied as:
 
-    *experimental*
+    *   instance of RDF::Trine::Model
 
-  aref_query( $graph, [ $origin ], $query )
-    Query parts of an aREF data structure. See RDF::aREF::Query for details.
+    *   instance of RDF::Trine::Model::Iterator
+
+    *   an URL (experimental and only if RDF::Trine is installed)
+
+    *   instance of Attean::API::TripleIterator (experimental)
+
+    *   instance of Attean::API::TripleStore (experimental)
+
+    *   hash reference with RDF/JSON <http://www.w3.org/TR/rdf-json/> format
+        (as returned by method "as_hashref" in RDF::Trine::Model)
+
+  aref_query $graph, [ $origin ], @queries
+    Query parts of an aREF data structure by aREF query expressions
+    <http://gbv.github.io/aREF/aREF.html#aref-query> and return a list. See
+    RDF::aREF::Query for details.
 
   aref_query_map( $graph, [ $origin ], $query_map )
     Map parts of an aREF data structure to a flat key-value structure.
