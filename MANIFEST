@@ -16,7 +16,7 @@ t/aref-query.t
 t/decode-errors.t
 t/decoder.t
 t/doi-example.json
-t/encoder-add.t
+t/encode_aref.t
 t/encoder.t
 t/example.json
 t/null.t
